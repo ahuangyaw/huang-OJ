@@ -1,0 +1,21 @@
+package asia.huangzhitao.huangOJ.common;
+
+import java.io.Serializable;
+import lombok.Data;
+
+/**
+ * 删除请求
+ *
+ * @author hwang
+ * 
+ */
+@Data
+public class DeleteRequest implements Serializable {
+
+    /**
+     * id
+     */
+    private Long id;
+
+    private static final long serialVersionUID = 1L;
+}
