@@ -35,7 +35,6 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/topic_submit")
 @Slf4j
-@Api(tags = "题目提交接口")
 public class TopicSubmitController {
 
     @Resource
@@ -52,7 +51,6 @@ public class TopicSubmitController {
      * @return 提交记录id
      */
     @PostMapping("/")
-    @ApiOperation("提交题目")
     public BaseResponse<Long> doTopicSubmit(@RequestBody TopicSubmitAddRequest topicSubmitAddRequest,
             HttpServletRequest request) {
         if (topicSubmitAddRequest == null || topicSubmitAddRequest.getTopicId() <= 0) {
@@ -71,7 +69,6 @@ public class TopicSubmitController {
      * @return
      */
     @PostMapping("/list/page")
-    @ApiOperation(value = "分页获取题目提交列表", notes = "分页获取题目提交列表")
     public BaseResponse<Page<TopicSubmitVO>> listTopicSubmitByPage(@RequestBody TopicSubmitQueryRequest topicSubmitQueryRequest,
                                                                    HttpServletRequest request) {
         long current = topicSubmitQueryRequest.getCurrent();

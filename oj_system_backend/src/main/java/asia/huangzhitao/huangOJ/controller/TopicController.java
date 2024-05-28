@@ -37,7 +37,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/topic")
 @Slf4j
-@Api(tags = "题目接口")
 public class TopicController {
 
     @Resource
@@ -56,7 +55,6 @@ public class TopicController {
      * @return
      */
     @PostMapping("/add")
-    @ApiOperation(value = "创建题目", notes = "创建题目")
     public BaseResponse<Long> addTopic(@RequestBody TopicAddRequest topicAddRequest, HttpServletRequest request) {
         if (topicAddRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -94,7 +92,6 @@ public class TopicController {
      * @return
      */
     @PostMapping("/delete")
-    @ApiOperation(value = "删除题目", notes = "删除题目")
     public BaseResponse<Boolean> deleteTopic(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
         if (deleteRequest == null || deleteRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -120,7 +117,6 @@ public class TopicController {
      */
     @PostMapping("/update")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
-    @ApiOperation(value = "更新题目", notes = "更新题目")
     public BaseResponse<Boolean> updateTopic(@RequestBody TopicUpdateRequest topicUpdateRequest) {
         if (topicUpdateRequest == null || topicUpdateRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -156,7 +152,6 @@ public class TopicController {
      * @return
      */
     @GetMapping("/get/vo")
-    @ApiOperation(value = "根据 id 获取题目", notes = "根据 id 获取题目")
     public BaseResponse<TopicVO> getTopicVOById(long id, HttpServletRequest request) {
         if (id <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -176,7 +171,6 @@ public class TopicController {
      */
     @PostMapping("/list/page")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
-    @ApiOperation(value = "分页获取列表（仅管理员）", notes = "分页获取列表（仅管理员）")
     public BaseResponse<Page<Topic>> listTopicByPage(@RequestBody TopicQueryRequest topicQueryRequest) {
         long current = topicQueryRequest.getCurrent();
         long size = topicQueryRequest.getPageSize();
@@ -193,7 +187,6 @@ public class TopicController {
      * @return
      */
     @PostMapping("/list/page/vo")
-    @ApiOperation(value = "分页获取列表（封装类）", notes = "分页获取列表（封装类）")
     public BaseResponse<Page<TopicVO>> listTopicVOByPage(@RequestBody TopicQueryRequest topicQueryRequest,
             HttpServletRequest request) {
         long current = topicQueryRequest.getCurrent();
@@ -213,7 +206,6 @@ public class TopicController {
      * @return
      */
     @PostMapping("/my/list/page/vo")
-    @ApiOperation(value = "分页获取当前用户创建的资源列表", notes = "分页获取当前用户创建的资源列表")
     public BaseResponse<Page<TopicVO>> listMyTopicVOByPage(@RequestBody TopicQueryRequest topicQueryRequest,
             HttpServletRequest request) {
         if (topicQueryRequest == null) {
@@ -238,7 +230,6 @@ public class TopicController {
      * @return
      */
     @PostMapping("/edit")
-    @ApiOperation(value = "编辑（用户）", notes = "编辑（用户）")
     public BaseResponse<Boolean> editTopic(@RequestBody TopicEditRequest topicEditRequest, HttpServletRequest request) {
         if (topicEditRequest == null || topicEditRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
