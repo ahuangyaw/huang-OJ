@@ -5,6 +5,7 @@ import asia.huangzhitao.huangOJ.model.entity.Question;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
@@ -126,7 +127,12 @@ public class QuestionVO implements Serializable {
         List<String> tagList = JSONUtil.toList(question.getTags(), String.class);
         questionVO.setTags(tagList);
         String judgeConfigStr = question.getJudgeConfig();
-        questionVO.setJudgeConfig(JSONUtil.toBean(judgeConfigStr, JudgeConfig.class));
+        if (StringUtils.isNotBlank(judgeConfigStr) && judgeConfigStr.startsWith("{")) {
+            questionVO.setJudgeConfig(JSONUtil.toBean(judgeConfigStr, JudgeConfig.class));
+        } else {
+            // 处理非JSON格式或空字符串的情况
+            questionVO.setJudgeConfig(new JudgeConfig()); // 或其他默认值
+        }
         return questionVO;
     }
 
