@@ -41,7 +41,34 @@ export const manageColumns = [
   },
   {
     title: "创建时间",
-    dataIndex: "updateTime",
+    dataIndex: "createTime",
+  },
+  {
+    title: "操作",
+    slotName: "optional",
+  },
+];
+
+export const questionsColumns = [
+  {
+    title: "题号",
+    dataIndex: "id",
+  },
+  {
+    title: "标题",
+    dataIndex: "title",
+  },
+  {
+    title: "标签",
+    slotName: "tags",
+  },
+  {
+    title: "通过率",
+    slotName: "acceptedRate",
+  },
+  {
+    title: "创建时间",
+    slotName: "createTime",
   },
   {
     title: "操作",
