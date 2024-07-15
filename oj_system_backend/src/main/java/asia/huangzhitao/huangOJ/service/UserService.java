@@ -1,14 +1,15 @@
 package asia.huangzhitao.huangOJ.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.IService;
 import asia.huangzhitao.huangOJ.model.dto.user.UserQueryRequest;
 import asia.huangzhitao.huangOJ.model.entity.User;
 import asia.huangzhitao.huangOJ.model.vo.LoginUserVO;
 import asia.huangzhitao.huangOJ.model.vo.UserVO;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.IService;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 用户服务

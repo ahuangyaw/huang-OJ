@@ -1,8 +1,8 @@
 package asia.huangzhitao.huangOJ.service;
 
 import asia.huangzhitao.huangOJ.model.entity.PostThumb;
-import com.baomidou.mybatisplus.extension.service.IService;
 import asia.huangzhitao.huangOJ.model.entity.User;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * 帖子点赞服务

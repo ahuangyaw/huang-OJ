@@ -16,6 +16,7 @@ import asia.huangzhitao.huangOJ.service.QuestionService;
 import asia.huangzhitao.huangOJ.service.UserService;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,8 @@ public class QuestionController {
     @Resource
     private UserService userService;
 
+    private final static Gson GSON = new Gson();
+
     // region 增删改查
 
     /**
@@ -59,15 +62,15 @@ public class QuestionController {
         BeanUtils.copyProperties(questionAddRequest, question);
         List<String> tags = questionAddRequest.getTags();
         if (tags != null) {
-            question.setTags(JSONUtil.toJsonStr(tags));
+            question.setTags(GSON.toJson(tags));
         }
         List<JudgeCase> judgeCase = questionAddRequest.getJudgeCase();
-        if (judgeCase != null){
-            question.setJudgeCase(JSONUtil.toJsonStr(judgeCase));
+        if (judgeCase != null) {
+            question.setJudgeCase(GSON.toJson(judgeCase));
         }
-        List<JudgeConfig> judgeConfig = questionAddRequest.getJudgeConfig();
-        if (judgeConfig != null){
-            question.setJudgeConfig(JSONUtil.toJsonStr(judgeConfig));
+        JudgeConfig judgeConfig = questionAddRequest.getJudgeConfig();
+        if (judgeConfig != null) {
+            question.setJudgeConfig(GSON.toJson(judgeConfig));
         }
         questionService.validQuestion(question, true);
         User loginUser = userService.getLoginUser(request);
@@ -158,6 +161,7 @@ public class QuestionController {
         }
         return ResultUtils.success(questionService.getQuestionVO(question, request));
     }
+
 
     /**
      * 根据 id 获取题目

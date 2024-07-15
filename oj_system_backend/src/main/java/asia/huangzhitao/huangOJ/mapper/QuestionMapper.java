@@ -1,7 +1,7 @@
 package asia.huangzhitao.huangOJ.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import asia.huangzhitao.huangOJ.model.entity.Question;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
 * @author hwang

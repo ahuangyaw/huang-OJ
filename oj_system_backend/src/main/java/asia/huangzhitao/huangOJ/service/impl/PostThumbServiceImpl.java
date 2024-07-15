@@ -1,7 +1,5 @@
 package asia.huangzhitao.huangOJ.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import asia.huangzhitao.huangOJ.common.ErrorCode;
 import asia.huangzhitao.huangOJ.exception.BusinessException;
 import asia.huangzhitao.huangOJ.mapper.PostThumbMapper;
@@ -10,10 +8,13 @@ import asia.huangzhitao.huangOJ.model.entity.PostThumb;
 import asia.huangzhitao.huangOJ.model.entity.User;
 import asia.huangzhitao.huangOJ.service.PostService;
 import asia.huangzhitao.huangOJ.service.PostThumbService;
-import javax.annotation.Resource;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * 帖子点赞服务实现

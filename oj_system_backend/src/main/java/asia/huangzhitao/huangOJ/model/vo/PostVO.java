@@ -1,12 +1,13 @@
 package asia.huangzhitao.huangOJ.model.vo;
 
-import cn.hutool.json.JSONUtil;
 import asia.huangzhitao.huangOJ.model.entity.Post;
+import cn.hutool.json.JSONUtil;
+import lombok.Data;
+import org.springframework.beans.BeanUtils;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import lombok.Data;
-import org.springframework.beans.BeanUtils;
 
 /**
  * 帖子视图

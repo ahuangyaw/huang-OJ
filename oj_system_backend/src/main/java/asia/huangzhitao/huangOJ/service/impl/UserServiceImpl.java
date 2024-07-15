@@ -1,10 +1,5 @@
 package asia.huangzhitao.huangOJ.service.impl;
 
-import static asia.huangzhitao.huangOJ.constant.UserConstant.USER_LOGIN_STATE;
-
-import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import asia.huangzhitao.huangOJ.common.ErrorCode;
 import asia.huangzhitao.huangOJ.constant.CommonConstant;
 import asia.huangzhitao.huangOJ.exception.BusinessException;
@@ -16,16 +11,22 @@ import asia.huangzhitao.huangOJ.model.vo.LoginUserVO;
 import asia.huangzhitao.huangOJ.model.vo.UserVO;
 import asia.huangzhitao.huangOJ.service.UserService;
 import asia.huangzhitao.huangOJ.utils.SqlUtils;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
+import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static asia.huangzhitao.huangOJ.constant.UserConstant.USER_LOGIN_STATE;
 
 /**
  * 用户服务实现

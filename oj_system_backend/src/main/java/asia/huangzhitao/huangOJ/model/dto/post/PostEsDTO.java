@@ -1,10 +1,9 @@
 package asia.huangzhitao.huangOJ.model.dto.post;
 
+import asia.huangzhitao.huangOJ.model.entity.Post;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONUtil;
-import asia.huangzhitao.huangOJ.model.entity.Post;
 import lombok.Data;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.Id;

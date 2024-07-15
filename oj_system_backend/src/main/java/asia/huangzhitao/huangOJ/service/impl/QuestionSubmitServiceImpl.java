@@ -3,14 +3,15 @@ package asia.huangzhitao.huangOJ.service.impl;
 import asia.huangzhitao.huangOJ.common.ErrorCode;
 import asia.huangzhitao.huangOJ.constant.CommonConstant;
 import asia.huangzhitao.huangOJ.exception.BusinessException;
+import asia.huangzhitao.huangOJ.judge.JudgeService;
 import asia.huangzhitao.huangOJ.mapper.QuestionSubmitMapper;
 import asia.huangzhitao.huangOJ.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import asia.huangzhitao.huangOJ.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import asia.huangzhitao.huangOJ.model.entity.Question;
 import asia.huangzhitao.huangOJ.model.entity.QuestionSubmit;
 import asia.huangzhitao.huangOJ.model.entity.User;
-import asia.huangzhitao.huangOJ.model.enums.QuestionSubmitEnum;
 import asia.huangzhitao.huangOJ.model.enums.QuestionSubmitLanguageEnum;
+import asia.huangzhitao.huangOJ.model.enums.QuestionSubmitStatusEnum;
 import asia.huangzhitao.huangOJ.model.vo.QuestionSubmitVO;
 import asia.huangzhitao.huangOJ.service.QuestionService;
 import asia.huangzhitao.huangOJ.service.QuestionSubmitService;
@@ -22,10 +23,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +44,10 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     @Resource
     private UserService userService;
+
+    @Resource
+    @Lazy
+    private JudgeService judgeService;
 
     /**
      * 提交题目
@@ -73,12 +80,17 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         questionSubmit.setCode(questionSubmitAddRequest.getCode());
         questionSubmit.setLanguage(language);
         // 设置初始状态
-        questionSubmit.setStatus(QuestionSubmitEnum.WAITING.getValue());
+        questionSubmit.setStatus(QuestionSubmitStatusEnum.WAITING.getValue());
         questionSubmit.setJudgeInfo("{}");
         boolean save = this.save(questionSubmit);
         if (!save){
             throw new BusinessException(ErrorCode.SYSTEM_ERROR,"提交题目失败");
         }
+        Long questionSubmitId = questionSubmit.getId();
+        // 异步执行判题服务
+        CompletableFuture.runAsync(() -> {
+            judgeService.doJudge(questionSubmitId);
+        });
         return questionSubmit.getId();
 
     }
@@ -106,7 +118,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         queryWrapper.eq(StringUtils.isNotBlank(language), "language", language);
         queryWrapper.eq(ObjectUtils.isNotEmpty(questionId), "questionId", questionId);
         queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "userId", userId);
-        queryWrapper.eq(QuestionSubmitEnum.getEnumByValue(status) != null, "status", status);
+        queryWrapper.eq(QuestionSubmitStatusEnum.getEnumByValue(status) != null, "status", status);
         queryWrapper.orderBy(SqlUtils.validSortField(sortField), sortOrder.equals(CommonConstant.SORT_ORDER_ASC),
                 sortField);
         return queryWrapper;

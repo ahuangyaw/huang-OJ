@@ -1,12 +1,12 @@
 package asia.huangzhitao.huangOJ.service;
 
+import asia.huangzhitao.huangOJ.model.entity.Post;
+import asia.huangzhitao.huangOJ.model.entity.PostFavour;
+import asia.huangzhitao.huangOJ.model.entity.User;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import asia.huangzhitao.huangOJ.model.entity.Post;
-import asia.huangzhitao.huangOJ.model.entity.PostFavour;
-import asia.huangzhitao.huangOJ.model.entity.User;
 
 /**
  * 帖子收藏服务

@@ -2,9 +2,10 @@ package asia.huangzhitao.huangOJ.model.dto.postfavour;
 
 import asia.huangzhitao.huangOJ.common.PageRequest;
 import asia.huangzhitao.huangOJ.model.dto.post.PostQueryRequest;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
  * 帖子收藏查询请求

@@ -1,10 +1,5 @@
 package asia.huangzhitao.huangOJ.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import asia.huangzhitao.huangOJ.common.ErrorCode;
 import asia.huangzhitao.huangOJ.exception.BusinessException;
 import asia.huangzhitao.huangOJ.mapper.PostFavourMapper;
@@ -13,10 +8,16 @@ import asia.huangzhitao.huangOJ.model.entity.PostFavour;
 import asia.huangzhitao.huangOJ.model.entity.User;
 import asia.huangzhitao.huangOJ.service.PostFavourService;
 import asia.huangzhitao.huangOJ.service.PostService;
-import javax.annotation.Resource;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * 帖子收藏服务实现
