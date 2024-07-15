@@ -14,42 +14,33 @@
       <a-form-item field="answer" label="答案">
         <MdEditor :value="form.answer" :handle-change="onAnswerChange" />
       </a-form-item>
-      <a-form-item
-        v-for="(judgeConfigItem, index) of form.judgeConfig"
-        :key="index"
-        label="判题配置"
-        :content-flex="false"
-        :merge-props="false"
-      >
-        <a-space direction="vertical" style="min-width: 500px">
-          <a-form-item field="judgeConfig.timeLimit" label="时间限制(ms)">
+      <a-form-item label="判题配置" :content-flex="false" :merge-props="false">
+        <a-space direction="vertical" style="min-width: 480px">
+          <a-form-item field="judgeConfig.timeLimit" label="时间限制">
             <a-input-number
-              v-model="judgeConfigItem.timeLimit"
+              v-model="form.judgeConfig.timeLimit"
               placeholder="请输入时间限制"
               mode="button"
-              MIN="0"
+              min="0"
               size="large"
-              :step="1000"
             />
           </a-form-item>
           <a-form-item field="judgeConfig.memoryLimit" label="内存限制">
             <a-input-number
-              v-model="judgeConfigItem.memoryLimit"
+              v-model="form.judgeConfig.memoryLimit"
               placeholder="请输入内存限制"
               mode="button"
-              MIN="0"
+              min="0"
               size="large"
-              :step="1000"
             />
           </a-form-item>
           <a-form-item field="judgeConfig.stackLimit" label="堆栈限制">
             <a-input-number
-              v-model="judgeConfigItem.stackLimit"
+              v-model="form.judgeConfig.stackLimit"
               placeholder="请输入堆栈限制"
               mode="button"
-              MIN="0"
+              min="0"
               size="large"
-              :step="1000"
             />
           </a-form-item>
         </a-space>
@@ -105,21 +96,35 @@
     </a-form>
   </div>
 </template>
+
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import MdEditor from "@/components/MdEditor.vue";
 import { QuestionControllerService } from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
 import { useRoute } from "vue-router";
-import { addQuestion } from "@/common/columns";
 
 const route = useRoute();
-
 // 如果页面地址包含 update，视为更新页面
 const updatePage = route.path.includes("update");
 
-let form = ref(addQuestion);
-console.log("form:" + form.value.judgeConfig);
+let form = ref({
+  title: "",
+  tags: [],
+  answer: "",
+  content: "",
+  judgeConfig: {
+    memoryLimit: 1000,
+    stackLimit: 1000,
+    timeLimit: 1000,
+  },
+  judgeCase: [
+    {
+      input: "",
+      output: "",
+    },
+  ],
+});
 
 /**
  * 根据题目 id 获取老的数据
@@ -146,13 +151,11 @@ const loadData = async () => {
       form.value.judgeCase = JSON.parse(form.value.judgeCase as any);
     }
     if (!form.value.judgeConfig) {
-      form.value.judgeConfig = [
-        {
-          memoryLimit: 1000,
-          stackLimit: 1000,
-          timeLimit: 1000,
-        },
-      ];
+      form.value.judgeConfig = {
+        memoryLimit: 1000,
+        stackLimit: 1000,
+        timeLimit: 1000,
+      };
     } else {
       form.value.judgeConfig = JSON.parse(form.value.judgeConfig as any);
     }
@@ -168,11 +171,6 @@ const loadData = async () => {
 
 onMounted(() => {
   loadData();
-  form.value.judgeConfig.forEach((config) => {
-    console.log(
-      `Memory limit: ${config.memoryLimit}, Stack limit: ${config.stackLimit}, Time limit: ${config.timeLimit}`
-    );
-  });
 });
 
 const doSubmit = async () => {
@@ -224,7 +222,8 @@ const onAnswerChange = (value: string) => {
   form.value.answer = value;
 };
 </script>
+
 <style scoped>
-#addTopicView {
+#addQuestionView {
 }
 </style>
