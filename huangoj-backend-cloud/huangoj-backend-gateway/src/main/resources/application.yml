@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    nacos:
+      serverAddr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: huangoj-backend-user-service
+          uri: lib://huangoj-backend-user-service
+          predicates:
+            - Path=/api/user/**
+        - id: huangoj-backend-question-service
+          uri: lib://huangoj-question-user-service
+          predicates:
+            - Path=/api/question/**
+        - id: huangoj-backend-judge-service
+          uri: lib://huangoj-backend-judge-service
+          predicates:
+            - Path=/api/judge/**
+  application:
+    name: huangoj-backend-gateway
+  main:
+    web-application-type: reactive
+server:
+  port: 8101
